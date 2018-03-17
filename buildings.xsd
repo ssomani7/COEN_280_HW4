@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" 
+		   elementFormDefault="qualified">
+		
+	<xs:element name="buildingsTable">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="building" maxOccurs="unbounded"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>	
+	
+	<xs:element name="building">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="buildingCode"/>
+				<xs:element ref="buildingName"/>
+				<xs:element ref="position"/>
+				<xs:element ref="address" minOccurs="0" maxOccurs="1"/>	
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>	
+		   
+	<xs:element name="buildingCode">
+		<xs:simpleType>
+			<xs:restriction base="xs:string">
+				<xs:pattern value="[A-Z][A-Z][A-Z]"/> 
+			</xs:restriction>
+		</xs:simpleType>
+	</xs:element>		   
+		   
+	<xs:element name="buildingName" type="xs:string"/>
+	
+	<xs:element name="position">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="latitude">
+					<xs:simpleType>
+						<xs:restriction base="xs:decimal">
+							<xs:fractionDigits value="6"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element name="longitude">
+					<xs:simpleType>
+						<xs:restriction base="xs:decimal">
+							<xs:fractionDigits value="3"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>	   
+		
+	<!-- You cannot use maxOccurs/minOccurs in the root element. You need context for that. -->
+	<!-- Hence maxOccurs/minOccurs will give error if used alongside "address", as it root element -->	
+	<xs:element name="address">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="streetNo" type="xs:nonNegativeInteger"/>
+				<xs:element name="strName" type="xs:string"/>
+				<xs:element name="city" type="xs:string"/>
+				<xs:element name="state">
+					<xs:simpleType>
+						<xs:restriction base="xs:string">
+							<xs:pattern value="[A-Z][A-Z]"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element name="zip">
+					<xs:simpleType>
+						<xs:restriction base="xs:nonNegativeInteger">
+							<xs:pattern value="[0-9][0-9][0-9][0-9][0-9]"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+		   
+</xs:schema>

@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" 
+		   elementFormDefault="qualified">
+		   
+	<xs:element name="ssn">
+		<xs:simpleType>
+			<xs:restriction base="xs:string">
+				<xs:pattern value="[0-9]{3}-[0-9]{2}-[0-9]{4}"/>
+			</xs:restriction>
+		</xs:simpleType>
+	</xs:element>
+	
+	<xs:element name="name" type="xs:string"/>
+	
+    <xs:element name="dob">
+        <xs:simpleType>
+            <xs:restriction base="xs:date"/>
+        </xs:simpleType>
+    </xs:element>
+	
+	<xs:element name="gender">
+		<xs:simpleType>
+			<xs:restriction base="xs:string">
+				<xs:enumeration value="M"/>
+				<xs:enumeration value="F"/>
+			</xs:restriction>
+		</xs:simpleType>
+	</xs:element>
+	
+	<xs:element  name="type"> 
+        <xs:simpleType>
+            <xs:restriction base="xs:string">
+                <xs:enumeration value="Both"/>
+                <xs:enumeration value="Master"/>
+                <xs:enumeration value="Phd"/>
+            </xs:restriction>
+        </xs:simpleType>
+    </xs:element>
+    
+    <!-- Base is String, so we have to use min/maxLength. For integer use min/maxInclusive -->
+	<xs:element name="phone">
+		<xs:simpleType>
+			<xs:restriction base="xs:string">
+				<xs:minLength value="10"/>
+				<xs:maxLength value="14"/>
+				<xs:pattern value="[1-3]{3}-[0-9]{3}-[0-9]{4}"/>
+			</xs:restriction>
+		</xs:simpleType>
+	</xs:element>
+	
+	<xs:element name="buildingCode">
+		<xs:simpleType>
+			<xs:restriction base="xs:string">
+				<xs:pattern value="[A-Z][A-Z][A-Z]"/> 
+			</xs:restriction>
+		</xs:simpleType>
+	</xs:element>
+		   
+	<xs:element name="student">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="ssn"/>
+				<xs:element ref="name"/>
+				<xs:element ref="dob"/>
+				<xs:element ref="gender"/>
+				<xs:element ref="type"/>
+				<xs:element ref="buildingCode" minOccurs="0" maxOccurs="unbounded"/>
+				<xs:element ref="phone" maxOccurs="unbounded"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+		   
+	<xs:element name="studentsTable">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="student" minOccurs="0" maxOccurs="unbounded"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+		   
+</xs:schema>
